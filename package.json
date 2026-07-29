@@ -1,0 +1,17 @@
+{
+  "name": "streaming-backend",
+  "version": "1.0.0",
+  "description": "WebSocket relay backend for Pi H264 video streams (publisher/viewer fan-out)",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.10.0",
+    "ws": "^8.17.0"
+  }
+}
