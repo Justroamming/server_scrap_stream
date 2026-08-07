@@ -10,17 +10,23 @@
  * SERVER_HOST=192.168.1.x (IP của máy tính chạy server_scrap_stream)
  * PORT=8100
  * DEVICE_ID=1
- * DEVICE_KEY=test-key-123
+ * DEVICE_KEY=<raw-key-from-backend>
  */
 
 require("dotenv").config();
 const WebSocket = require("ws");
 const { spawn } = require("child_process");
 
-const SERVER_HOST = process.env.SERVER_HOST || "localhost";
+function required(name) {
+  const value = process.env[name]?.trim();
+  if (!value) throw new Error(`Missing required env var: ${name}`);
+  return value;
+}
+
+const SERVER_HOST = required("SERVER_HOST");
 const PORT        = process.env.PORT        || "8100";
-const DEVICE_ID   = process.env.DEVICE_ID   || "1";
-const DEVICE_KEY  = process.env.DEVICE_KEY  || "test-key-123";
+const DEVICE_ID   = required("DEVICE_ID");
+const DEVICE_KEY  = required("DEVICE_KEY");
 
 const SERVER_URL = `ws://${SERVER_HOST}:${PORT}/ws/publish`;
 

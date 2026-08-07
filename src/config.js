@@ -12,6 +12,8 @@ function required(name) {
 
 module.exports = {
   port: parseInt(process.env.PORT || "8100", 10),
+  backendBaseUrl: (process.env.BACKEND_BASE_URL || "http://127.0.0.1:8080").replace(/\/$/, ""),
+  backendRequestTimeoutMs: parseInt(process.env.BACKEND_REQUEST_TIMEOUT_MS || "3000", 10),
 
   db: {
     host: required("DB_HOST"),
@@ -21,5 +23,4 @@ module.exports = {
     password: required("DB_PASSWORD"),
   },
 
-  jwtSecret: required("JWT_SECRET"),
 };

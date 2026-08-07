@@ -72,7 +72,9 @@ httpServer.on("upgrade", async (req, socket, head) => {
     const result = await authenticateViewer(token, deviceId);
     if (!result.ok) {
       console.log(`[view] rejected connection to device ${deviceId}: ${result.reason}`);
-      return rejectUpgrade(socket, 401, "Unauthorized");
+      const statusCode = result.statusCode === 503 ? 503 : 401;
+      const statusText = statusCode === 503 ? "Service Unavailable" : "Unauthorized";
+      return rejectUpgrade(socket, statusCode, statusText);
     }
 
     viewerWss.handleUpgrade(req, socket, head, (ws) => {
